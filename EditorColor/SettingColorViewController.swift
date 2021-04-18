@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SettingColorViewController.swift
 //  EditorColor
 //
 //  Created by MacBook on 31.03.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SettingColorViewController: UIViewController {
     
     @IBOutlet var viewColor: UIView!
     
@@ -19,13 +19,16 @@ class ViewController: UIViewController {
     @IBOutlet var sliderGreen: UISlider!
     @IBOutlet var sliderBlue: UISlider!
     
+    var colorOfMainView: UIColor!
+    var delegate: SettingsViewControllerDelegate!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewColor.layer.cornerRadius = 10
         
-        viewColor.backgroundColor = .black
+        viewColor.backgroundColor = colorOfMainView
         
         
         sliderRed.minimumTrackTintColor = .red
@@ -50,6 +53,11 @@ class ViewController: UIViewController {
         blueLevel.text = String(format: "%.2f", sliderBlue.value)
         
         setColor()
+    }
+    
+    @IBAction func doneButtonPressed() {
+        delegate.setNewColor(for: viewColor)
+        dismiss(animated: true)
     }
     
     private func setColor() {
